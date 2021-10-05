@@ -1,0 +1,9 @@
+---
+- name: Demo Debug
+  hosts: localhost
+  gather_facts: true
+  tasks:
+    - name: execute whoami command
+      command: whoami
+      register: out
+    - debug: var=out
