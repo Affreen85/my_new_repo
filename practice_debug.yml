@@ -6,4 +6,5 @@
     - name: execute whoami command
       command: whoami
       register: out
-    - debug: var=out
+    - debug:
+        msg: "this is the output of the command {{ out }} !"
