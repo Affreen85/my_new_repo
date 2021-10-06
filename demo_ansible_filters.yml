@@ -1,0 +1,64 @@
+---
+- name: Demo important ansible filters 
+  hosts: localhost
+  gather_facts: false
+  vars:
+    str1: "My name is Affreen"
+    str2: 9
+    str3: 
+      - name: "Monday"
+        temp: "hot"
+      - name: "Tuesday"
+        temp: "windy"
+      - name: "Wednesday"
+        temp: "cold"
+    str4: 
+      month: October
+      week: First
+      Day: Wednesday
+    str5:
+      - eth0
+      - eth1
+      - eth2
+      - lo
+      - docker0
+      - wan0
+    str6: ["IBM","VMware","Symantec","HRA","FDNY","BOA"]
+
+  tasks:
+    - name: Print the vars
+      debug:
+        msg:
+          - "{{ str1 }}"
+          - "{{ str2 }}"
+          - "{{ str3 }}"
+          - "{{ str4 }}"
+
+    - name: Execute a Filter operation in a list - print all eth and wan interfaces 
+      debug: 
+        msg: "{{ str5 | select('match', '^(eth|wan)[0-9]') | list}}"
+
+    - name: Merge two lists into single list
+      debug:
+        msg: "{{ str5 + str6 }}"
+
+    - name: Add a new Key Value pair in the Dictionary Object
+      debug:
+        msg: "{{ str4 | combine ({ 'time': 'Afternoon' }) }}"
+
+    - name: Add a new item to the existing list
+      debug:
+        msg: "{{ str6 + ['Wipro'] }}"
+
+    - name: Use Ansible to search and replace string
+      debug:
+        msg: "{{ str1 | regex_replace('Affreen', 'Maggie') }}"
+
+    - name: Select and Map certain keys in Dictionary
+      debug:
+        msg: "{{ str3 | selectattr('name', 'match', 'Monday') | map(attribute='temp') | list }}"
+
+    
+
+
+

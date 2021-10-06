@@ -1,0 +1,27 @@
+---
+- name: Demo delegate task to localhost after gathering facts from managed hosts
+  hosts: nodes
+  tasks:
+    - name: Print the IPv6 Addresses of the Managed Nodes 
+      debug:
+        msg: "{{ ansible_facts.all_ipv6_addresses }}"
+
+    - name: Delete the file if pre exist
+      file:
+        path: ./ipv6_addresses
+        state: absent
+      delegate_to: localhost
+      run_once: true
+
+    - name: Create an empty file
+      file:
+        path: ./ipv6_addresses
+        state: touch
+      delegate_to: localhost
+      run_once: true
+
+    - name: Update the file with the IPv6 addresses of the hosts
+      lineinfile:
+        path: ./ipv6_addresses
+        line: "{{ ansible_facts.all_ipv6_addresses }}"
+      delegate_to: localhost

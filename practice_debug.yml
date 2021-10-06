@@ -1,6 +1,6 @@
 ---
 - name: Demo Debug
-  hosts: localhost
+  hosts: nodes
   gather_facts: true
   tasks:
     - name: execute whoami command
@@ -8,3 +8,13 @@
       register: out
     - debug:
         msg: "this is the output of the command {{ out }} !"
+
+    - name: Print the Hostname, Server IP, NTP and DNS
+      debug:
+        msg: 
+          - "Hostname of the Server is : {{ inventory_hostname }} !"
+          - "Ip address of the Server is : {{ server_ip }} !"
+          - "NTP Server is : {{ ntp_server }} !"
+          - "DNS of the Server is : {{ dns_server }}"
+
+

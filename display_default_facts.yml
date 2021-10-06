@@ -1,0 +1,6 @@
+---
+- name: Display Default Facts
+  hosts: rheltarget1
+  tasks:
+    - name: print the facts
+      debug: var=ansible_facts.date_time.date

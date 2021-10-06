@@ -1,0 +1,27 @@
+---
+- name: Demo delegate task to Remote Server after gathering facts from managed hosts
+  hosts: nodes
+  tasks:
+    - name: Print the IPv6 Addresses of the Managed Nodes 
+      debug:
+        msg: "The IPv6 address of the Server {{ inventory_hostname }} is : {{ ansible_facts.all_ipv6_addresses }}"
+
+    - name: Delete the file if pre exist
+      file:
+        path: ./ipv6_addresses
+        state: absent
+      delegate_to: rhel_tower
+      run_once: true
+
+    - name: Create an empty file
+      file:
+        path: ./ipv6_addresses
+        state: touch
+      delegate_to: rhel_tower
+      run_once: true
+
+    - name: Update the file with the IPv6 addresses of the hosts
+      lineinfile:
+        path: ./ipv6_addresses
+        line:  "The IPv6 address of the Server {{ inventory_hostname }} is : {{ ansible_facts.all_ipv6_addresses }}"
+      delegate_to: rhel_tower
