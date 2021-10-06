@@ -1,0 +1,6 @@
+[nodes]
+rheltarget1
+rheltarget2
+
+[password]
+rheltarget3 ansible_user=iAmXyz

@@ -1,0 +1,14 @@
+---
+- name: Demo Special Variables
+  hosts: all
+  gather_facts: true
+  tasks:
+    - name: Debug the inventory hostname
+      debug: 
+        msg: "{{ inventory_hostname }}"
+    - name: Debug the group 
+      debug: 
+        msg: "{{ group_names }}"
+    - name: Debug the hostvars
+      debug:
+        msg: "{{ hostvars }}"  
