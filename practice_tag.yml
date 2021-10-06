@@ -1,0 +1,28 @@
+---
+- name: Demo Tag
+  hosts: localhost
+  gather_facts: true
+  tasks:
+    - name: Debug Day
+      debug:
+        msg: "Today is Tuesday !"
+      tags:
+        - days
+
+    - name: Debug Week
+      debug:
+        msg: "It is the first week !"
+      tags:
+        - weeks
+
+    - name: Debug Month
+      debug:
+        msg: "It is October !"
+      tags:
+        - months
+
+    - name: Debug Time
+      debug:
+        msg: "I am having a good time!"
+      tags:
+        - always
