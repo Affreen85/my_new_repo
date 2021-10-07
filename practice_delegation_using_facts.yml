@@ -1,6 +1,0 @@
----
-- name: Delegate the task to localhost with facts gathered from the managed nodes
-  hosts: nodes
-  gather_facts: true
-  tasks:
-    - name: Gather Facts on the managed node and fetch 
